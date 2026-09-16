@@ -242,7 +242,7 @@
 
     // 石头
     rocks.forEach(r => IMG.head.complete
-      ? drawSprite("rock", r.x * CELL + CELL/2, r.y * CELL + CELL/2, CELL * 1.06)
+      ? drawSprite("rock", r.x * CELL + CELL/2, r.y * CELL + CELL/2, CELL * 1.14)
       : fallbackCell(r.x, r.y, "#b9b9b9", "#7d7d7d"));
 
     // 吃到苹果的闪烁消散特效
@@ -251,27 +251,27 @@
       const k = (now - f.t) / 420;
       ctx.save();
       ctx.globalAlpha = (1 - k) * (0.5 + 0.5 * Math.sin(k * 30));
-      drawSprite("apple", f.x * CELL + CELL/2, f.y * CELL + CELL/2, CELL * (1.05 + k * 0.5));
+      drawSprite("apple", f.x * CELL + CELL/2, f.y * CELL + CELL/2, CELL * (1.32 + k * 0.55));
       ctx.restore();
     });
 
     // 苹果（呼吸脉动）
     if (apple) {
       const pulse = 1 + 0.07 * Math.sin(now / 180);
-      drawSprite("apple", apple.x * CELL + CELL/2, apple.y * CELL + CELL/2, CELL * 1.05 * pulse);
+      drawSprite("apple", apple.x * CELL + CELL/2, apple.y * CELL + CELL/2, CELL * 1.32 * pulse);
     }
 
     // 蛇身体（平滑插值滑行）
     for (let i = snake.length - 1; i >= 1; i--) {
       const p = segPos(i, t);
       IMG.body.complete
-        ? drawSprite("body", p.x * CELL + CELL/2, p.y * CELL + CELL/2, CELL * 1.04)
+        ? drawSprite("body", p.x * CELL + CELL/2, p.y * CELL + CELL/2, CELL * 1.28)
         : fallbackCell(p.x, p.y, i % 2 ? "#7ecb3a" : "#8fda46", "#3e7a1c");
     }
     // 蛇头（按方向旋转）
     const hp = segPos(0, t);
     if (IMG.head.complete) {
-      drawSprite("head", hp.x * CELL + CELL/2, hp.y * CELL + CELL/2, CELL * 1.18, DIRS[dir].a);
+      drawSprite("head", hp.x * CELL + CELL/2, hp.y * CELL + CELL/2, CELL * 1.42, DIRS[dir].a);
     } else {
       fallbackCell(hp.x, hp.y, "#8fda46", "#3e7a1c");
     }
